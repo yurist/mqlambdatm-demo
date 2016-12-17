@@ -23,6 +23,12 @@ curdepth()
 # install pre-requisites
 yum install -y docker mysql56
 
+# wait for the stack creation to complete
+aws cloudformation wait stack-create-complete --stack-name $STACK_ID
+
+# create sample database
+mysql -h $MYSQL_HOST --user=demouser --password=demopass < ../sql/demo.sql
+
 # pull IBM mq-docker image
 pushd /tmp
 git clone https://github.com/ibm-messaging/mq-docker.git
@@ -33,12 +39,6 @@ popd
 
 # build demo image
 docker build -t mqlambdatm-demo ../docker/
-
-# wait for the stack creation to complete
-aws cloudformation wait stack-create-complete --stack-name $STACK_ID
-
-# create sample database
-mysql -h $MYSQL_HOST --user=demouser --password=demopass < ../sql/demo.sql
 
 # run demo image
 docker run -d -p 1414:1414 -e LICENSE=accept -e MQ_QMGR_NAME=$QMGR_NAME -e AWS_REGION=$AWS_REGION -v /var/lambdademo:/var/mqm --name demo mqlambda-demo
