@@ -1,0 +1,16 @@
+define process('LAMBDATEST') + 
+       applicid('MQLambdaSampleConsumer') +
+       replace
+       
+define qlocal('LAMBDATEST.INITQ') +
+       defsopt(excl) +
+       replace
+
+define qlocal('LAMBDATEST.Q') +
+       maxdepth(100000) +
+       trigger +
+       process('LAMBDATEST') +
+       trigtype(first) +
+       trigdata('') +
+       initq('LAMBDATEST.INITQ') +
+       replace

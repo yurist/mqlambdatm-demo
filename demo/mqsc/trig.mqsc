@@ -1,0 +1,12 @@
+define service(LAMBDATEST.TM) +
+       control(qmgr) +
+       servtype(server) +
+       startcmd('/home/dev/prj/gowork/bin/mqlambdatm') +
+       startarg('-m +QMNAME+ -q LAMBDATEST.INITQ') +
+       stopcmd('+MQ_INSTALL_PATH+bin/amqsstop') +
+       stoparg('-m +QMNAME+ -p +MQ_SERVER_PID+') +
+       stdout('/tmp/lambdatest.tm.out') +
+       stderr('/tmp/lambdatest.tm.err') +
+       replace
+
+start service(LAMBDATEST.TM)

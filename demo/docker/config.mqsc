@@ -1,0 +1,36 @@
+DEFINE CHANNEL(PASSWORD.SVRCONN) CHLTYPE(SVRCONN)
+SET CHLAUTH(PASSWORD.SVRCONN) TYPE(BLOCKUSER) USERLIST('nobody') DESCR('Allow privileged users on this channel')
+SET CHLAUTH('*') TYPE(ADDRESSMAP) ADDRESS('*') USERSRC(NOACCESS) DESCR('BackStop rule')
+SET CHLAUTH(PASSWORD.SVRCONN) TYPE(ADDRESSMAP) ADDRESS('*') USERSRC(CHANNEL) CHCKCLNT(REQUIRED)
+ALTER AUTHINFO(SYSTEM.DEFAULT.AUTHINFO.IDPWOS) AUTHTYPE(IDPWOS) ADOPTCTX(YES)
+REFRESH SECURITY TYPE(CONNAUTH)
+
+define service(LAMBDATEST.TM) +
+       control(qmgr) +
+       servtype(server) +
+       startcmd('/usr/local/bin/mqlambdatm') +
+       startarg('-m +QMNAME+ -q LAMBDATEST.INITQ --log-level DEBUG') +
+       stopcmd('+MQ_INSTALL_PATH+bin/amqsstop') +
+       stoparg('-m +QMNAME+ -p +MQ_SERVER_PID+') +
+       stdout('/tmp/lambdatest.tm.out') +
+       stderr('/tmp/lambdatest.tm.err') +
+       replace
+
+start service(LAMBDATEST.TM)
+
+define process('LAMBDATEST') + 
+       applicid('MQLambdaSampleConsumer') +
+       replace
+       
+define qlocal('LAMBDATEST.INITQ') +
+       defsopt(excl) +
+       replace
+
+define qlocal('LAMBDATEST.Q') +
+       maxdepth(100000) +
+       trigger +
+       process('LAMBDATEST') +
+       trigtype(first) +
+       trigdata('') +
+       initq('LAMBDATEST.INITQ') +
+       replace
