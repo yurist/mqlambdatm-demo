@@ -24,7 +24,9 @@ curdepth()
 yum install -y docker mysql56
 
 # wait for the stack creation to complete
+echo "Waiting for stack creation to complete..."
 aws cloudformation wait stack-create-complete --stack-name $STACK_ID
+echo "Stack ready."
 
 # create sample database
 mysql -h $MYSQL_HOST --user=demouser --password=demopass < ../sql/demo.sql
@@ -34,7 +36,7 @@ pushd /tmp
 git clone https://github.com/ibm-messaging/mq-docker.git
 
 # build MQ server image with samples
-docker build -t mq-docker --build-arg MQ_PACKAGES="MQSeriesRuntime-*.rpm MQSeriesServer-*.rpm MQSeriesMsg*.rpm MQSeriesJava*.rpm MQSeriesJRE*.rpm MQSeriesGSKit*.rpm MQSeriesSamples*.rpm" ./server/
+docker build -t mq-docker --build-arg MQ_PACKAGES="MQSeriesRuntime-*.rpm MQSeriesServer-*.rpm MQSeriesMsg*.rpm MQSeriesJava*.rpm MQSeriesJRE*.rpm MQSeriesGSKit*.rpm MQSeriesSamples*.rpm" ./mq-docker/server/
 popd
 
 # build demo image
