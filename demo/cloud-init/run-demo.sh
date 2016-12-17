@@ -8,7 +8,7 @@ TESTQ='LAMBDATEST.Q'
 # check queue manager state inside the container
 state()
 {
-    (docker exec demo dspmq -n -m $QMGR_NAME) || echo "no queue manager yet" | awk -F '[()]' '{ print $4 }'
+    ((docker exec demo dspmq -n -m $QMGR_NAME) || echo "no queue manager yet") | awk -F '[()]' '{ print $4 }'
 }
 
 curdepth()
