@@ -17,12 +17,7 @@ COPY *.mqsc /etc/mqm/
 RUN chmod +x /usr/local/bin/*.sh
 
 RUN apt-get update && \
-    apt-get install -y ca-certificates \
-            jq \
-            python \
-            python-pip
-
-RUN pip install awscli
+    apt-get install -y ca-certificates 
 
 RUN mkdir /tmp/mqlambda && \
     cd /tmp/mqlambda && \
