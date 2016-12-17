@@ -1,8 +1,8 @@
-DROP DATABASE IF EXISTS `awsmqsample`;
+DROP DATABASE IF EXISTS `mqlambdademo`;
 
-CREATE DATABASE `awsmqsample` DEFAULT CHARACTER SET latin1;
+CREATE DATABASE `mqlambdademo` DEFAULT CHARACTER SET latin1;
 
-USE `awsmqsample`;
+USE `mqlambdademo`;
 
 DROP TABLE IF EXISTS `orders`;
 
