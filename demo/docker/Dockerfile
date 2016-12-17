@@ -17,11 +17,16 @@ COPY *.mqsc /etc/mqm/
 RUN chmod +x /usr/local/bin/*.sh
 
 RUN apt-get update && \
-    apt-get install -y ca-certificates
+    apt-get install -y ca-certificates \
+            jq \
+            python \
+            python-pip
+
+RUN pip install awscli
 
 RUN mkdir /tmp/mqlambda && \
     cd /tmp/mqlambda && \
-    curl -LO -k $MQLAMBDATM_RELEASE && \
+    curl -LO $MQLAMBDATM_RELEASE && \
     tar -xzvf ./*.tar.gz && \
     mv mqlambdatm /usr/local/bin && \
     rm -rf /tmp/mqlambda && \
