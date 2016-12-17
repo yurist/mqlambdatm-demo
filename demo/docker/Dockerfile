@@ -16,7 +16,8 @@ COPY *.mqsc /etc/mqm/
 
 RUN chmod +x /usr/local/bin/*.sh
 
-RUN apt install -y ca-certificates
+RUN apt-get update && \
+    apt-get install -y ca-certificates
 
 RUN mkdir /tmp/mqlambda && \
     cd /tmp/mqlambda && \
