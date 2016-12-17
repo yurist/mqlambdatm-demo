@@ -33,6 +33,7 @@ mysql -h $MYSQL_HOST --user=demouser --password=demopass < ../sql/demo.sql
 
 # pull IBM mq-docker image
 pushd /tmp
+rm -rf mq-docker
 git clone https://github.com/ibm-messaging/mq-docker.git
 
 # build MQ server image with samples
