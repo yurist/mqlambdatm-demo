@@ -2,7 +2,7 @@
 
 set -e
 
-QMGR_NAME=LAMBDA_DEMO
+QMGR_NAME='LAMBDA_DEMO'
 TESTQ='LAMBDATEST.Q'
 
 # check queue manager state inside the container
