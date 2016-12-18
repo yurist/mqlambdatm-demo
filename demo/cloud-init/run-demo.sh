@@ -51,7 +51,7 @@ echo '==========> Stack ready.'
 
 # extract MySql host name
 
-jq_select = "\'.Stacks[] | select(.StackId == \"$Stack_ID\") | .Outputs[] | select(.OutputKey == \"MySqlInstancePublicDns\") | .OutputValue\'"
+jq_select="\'.Stacks[] | select(.StackId == \"$Stack_ID\") | .Outputs[] | select(.OutputKey == \"MySqlInstancePublicDns\") | .OutputValue\'"
 
 echo $jq_select
 
