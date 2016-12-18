@@ -56,7 +56,7 @@ jq_select=".Stacks[] | select(.StackName == \"$STACK_ID\") | .Outputs[] | select
 echo $jq_select
 
 MYSQL_HOST=$(aws cloudformation describe-stacks | \
-          jq --raw-output $jq_select)
+          jq --raw-output "$jq_select")
 
 echo '==========> Creating sample database'
 mysql -h $MYSQL_HOST --user=demouser --password=demopass < ./sql/demo.sql
