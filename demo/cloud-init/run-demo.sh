@@ -41,7 +41,7 @@ echo '==========> Successfully built base MQ docker image'
 popd
 
 echo '==========> Building demo docker image'
-docker build -t mqlambdatm-demo ../docker/
+docker build -t mqlambdatm-demo ./docker/
 echo '==========> Demo image built'
 
 # wait for the stack creation to complete
@@ -50,7 +50,7 @@ aws cloudformation wait stack-create-complete --stack-name $STACK_ID
 echo '==========> Stack ready.'
 
 echo '==========> Creating sample database'
-mysql -h $MYSQL_HOST --user=demouser --password=demopass < ../sql/demo.sql
+mysql -h $MYSQL_HOST --user=demouser --password=demopass < ./sql/demo.sql
 echo '==========> Sample DB created'
 
 echo '==========> Running demo docker container'
@@ -64,7 +64,7 @@ done
 echo '==========> Queue manager running'
 
 echo '==========> Putting sample messages to the triggered queue'
-docker exec -i demo /opt/mqm/samp/bin/amqsput $TESTQ < ../sql/orders.txt
+docker exec -i demo /opt/mqm/samp/bin/amqsput $TESTQ < ./sample-data/orders.txt
 
 echo '==========> Waiting for the queue to deplete'
 until [ `curdepth` == 0 ]; do
