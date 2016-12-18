@@ -78,3 +78,6 @@ EC2_HOST=$(echo $stacks | jq --raw-output "$jq_select_ec2_host")
 
 echo "You can check demo log by running"
 echo "ssh -t -i <your-key-pair-pem-file-location> ec2-user@"$EC2_HOST "tail /var/log/cloud-init-output.log"
+echo
+echo "You can remove all resources associated with this demo by running"
+echo "aws cloudformation delete-stack --stack-name "$STACK_NAME
