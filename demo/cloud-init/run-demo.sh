@@ -23,17 +23,17 @@ curdepth()
 log()
 {
     echo $1
-    aws sqs send-message --queue-url $SQS_QUEUE_URL --message-body "$1"
+    aws sqs send-message --queue-url $SQS_QUEUE_URL --message-body "$1" > /dev/null
 }
 
 done_well()
 {
-    aws sqs send-message --queue-url $SQS_QUEUE_URL --message-body "<ok>"
+    aws sqs send-message --queue-url $SQS_QUEUE_URL --message-body "<ok>" > /dev/null
 }
 
 done_badly()
 {
-    aws sqs send-message --queue-url $SQS_QUEUE_URL --message-body "<error>"
+    aws sqs send-message --queue-url $SQS_QUEUE_URL --message-body "<error>" > /dev/null
 }
 
 trap done_badly ERR
