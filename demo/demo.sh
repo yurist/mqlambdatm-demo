@@ -54,14 +54,16 @@ echo "=======> Uploading jar to S3..."
 aws s3 cp $CODE_ARCHIVE_DIR$CODE_ARCHIVE_NAME s3://$DEPLOYMENT_BUCKET/$CODE_ARCHIVE_NAME
 
 echo "=======> Creating CloudFormation stack..."
-STACK_ID=$(aws cloudformation create-stack --stack-name $STACK_NAME --capabilities CAPABILITY_IAM \
+out=$(aws cloudformation create-stack --stack-name $STACK_NAME --capabilities CAPABILITY_IAM \
                --template-body file://cfn/demo.yaml \
                --parameters ParameterKey=KeyPair,ParameterValue=$KEY_PAIR \
                             ParameterKey=S3Bucket,ParameterValue=$DEPLOYMENT_BUCKET \
                             ParameterKey=S3Key,ParameterValue=$CODE_ARCHIVE_NAME)
 
+echo "$out"
+
 echo "=======> Waiting for stack creation to complete, this will take awhile..."
-if [ aws cloudformation wait stack-create-complete --stack-name $STACK_NAME ]
+if [ aws cloudformation wait stack-create-complete --stack-name $STACK_NAME; ]
 then
     echo "=======> Stack successfully created"
 else

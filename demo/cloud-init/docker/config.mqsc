@@ -19,7 +19,7 @@ define service(LAMBDATEST.TM) +
 start service(LAMBDATEST.TM)
 
 define process('LAMBDATEST') + 
-       applicid('MQLambdaSampleConsumer') +
+       applicid('MQLambdaSampleMessageConsumer') +
        replace
        
 define qlocal('LAMBDATEST.INITQ') +

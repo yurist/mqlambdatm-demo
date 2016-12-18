@@ -231,22 +231,22 @@ Resources:
       SecurityGroupIds:
       - !Ref MqInstanceSecurityGroup
       SubnetId: !Ref MqInstanceSubnet
+      UserData:
+        Fn::Base64: !Sub |
+          #! /bin/bash
+          echo '==========> cloud-init user data script started'
+          export AWS_DEFAULT_REGION=${AWS::Region}
+          export AWS_REGION=$AWS_DEFAULT_REGION
+          export STACK_ID=${AWS::StackId}
+          export MYSQL_HOST=${MySqlInstance.Endpoint.Address}
+          yum install -y git
+          mkdir -p /var/lambda-test
+          cd /var/lambda-test
+          git clone https://github.com/yurist/mqlambdatm-demo.git
+          cd mqlambdatm-demo/demo/cloud-init
+          ./run-demo.sh
     DependsOn: 
     - MqIGW
-    UserData:
-      Fn::Base64: !Sub |
-        #! /bin/bash
-        echo '==========> cloud-init user data script started'
-        export AWS_DEFAULT_REGION=${AWS::Region}
-        export AWS_REGION=$AWS_DEFAULT_REGION
-        export STACK_ID=${AWS::StackId}
-        export MYSQL_HOST=${MySqlInstance.Endpoint.Address}
-        yum install -y git
-        mkdir -p /var/lambda-test
-        cd /var/lambda-test
-        git clone https://github.com/yurist/mqlambdatm-demo.git
-        cd mqlambdatm-demo/demo/cloud-init
-        ./run-demo.sh
       
       
   RoleLambdaVpcExecution:
@@ -287,7 +287,7 @@ Resources:
         S3Bucket: !Ref S3Bucket
         S3Key: !Ref S3Key
       Description: Sample Lambda MQ Consumer
-      FunctionName: MQLambdaSampleConsumer
+      FunctionName: MQLambdaSampleMessageConsumer
       Handler: com.steinschreiber.aws.samples.SampleMySqlMessageProcessor::handler
       Environment:
         Variables:
