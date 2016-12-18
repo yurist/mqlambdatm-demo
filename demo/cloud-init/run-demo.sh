@@ -27,6 +27,9 @@ echo
 # install pre-requisites
 yum install -y docker mysql56
 
+# start docker service
+service docker start
+
 # wait for the stack creation to complete
 echo '==========> Waiting for stack creation to complete...'
 aws cloudformation wait stack-create-complete --stack-name $STACK_ID

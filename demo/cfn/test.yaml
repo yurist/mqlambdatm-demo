@@ -1,0 +1,36 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Cloud-init test
+
+Resources:
+
+  TestMqInstanceProfile:
+    Type: "AWS::IAM::InstanceProfile"
+    Properties:
+      Path: '/'
+      Roles:
+      - "MQLambdaDemoStack-MqInstanceRole-180CP5Z7SD0TN"
+
+  TestMqInstance:
+    Type: "AWS::EC2::Instance"
+    Properties:
+      Tags:
+      - Key: Name
+        Value: 'Cloud-init test'
+      IamInstanceProfile: !Ref TestMqInstanceProfile
+      ImageId:  "ami-5ec1673e"
+      InstanceType: "t2.micro"
+      KeyName: "mqtestkp"
+      SecurityGroupIds:
+      - "sg-79b7a700"
+      SubnetId: subnet-a86e90cf
+      UserData:
+        Fn::Base64: !Sub |
+          #! /bin/bash
+          export AWS_DEFAULT_REGION=${AWS::Region}
+          export AWS_REGION=$AWS_DEFAULT_REGION
+          export STACK_ID=${AWS::StackId}
+          export MYSQL_HOST="mmxg9ojcyb1vfe.c9rcnbof579v.us-west-2.rds.amazonaws.com"
+          yum install -y git mysql56 docker
+          service docker start
+          
+      
