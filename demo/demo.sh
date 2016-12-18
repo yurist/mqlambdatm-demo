@@ -70,3 +70,14 @@ else
     echo "=======> Stack creation failure"
 fi
             
+jq_select_sql_host=".Stacks[] | select(.StackId == \"$STACK_ID\") | .Outputs[] | select(.OutputKey == \"MySqlInstancePublicDns\") | .OutputValue"
+
+jq_select_ec2_host=".Stacks[] | select(.StackId == \"$STACK_ID\") | .Outputs[] | select(.OutputKey == \"MqInstancePublicDns\") | .OutputValue"
+
+stacks=$(aws cloudformation describe-stacks)
+
+EC2_HOST=$(echo $stacks | jq --raw-output "$jq_select_ec2_host")
+SQL_HOST=$(echo $stacks | jq --raw-output "$jq_select_sql_host")
+
+echo "You can check demo log by running"
+echo "ssh -t -i <your-key-pair-pem-file-location> ec2-user@"$EC2_HOST "tail /var/log/cloud-init-output.log"
