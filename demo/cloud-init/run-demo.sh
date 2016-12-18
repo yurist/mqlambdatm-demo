@@ -50,9 +50,13 @@ aws cloudformation wait stack-create-complete --stack-name $STACK_ID
 echo '==========> Stack ready.'
 
 # extract MySql host name
+
+jq_select = "\'.Stacks[] | select(.StackId == \"$Stack_ID\") | .Outputs[] | select(.OutputKey == \"MySqlInstancePublicDns\") | .OutputValue\'"
+
+echo $jq_select
+
 MYSQL_HOST=$(aws cloudformation describe-stacks | \
-          jq --raw-output \
-             '.Stacks[] | select(.StackId == "$STACK_ID") | .Outputs[] | select(.OutputKey == "MySqlInstancePublicDns" | .OutputValue')
+          jq --raw-output $jq_select)
 
 echo '==========> Creating sample database'
 mysql -h $MYSQL_HOST --user=demouser --password=demopass < ./sql/demo.sql
