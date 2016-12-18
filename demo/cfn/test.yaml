@@ -31,6 +31,7 @@ Resources:
           export AWS_REGION=$AWS_DEFAULT_REGION
           export STACK_ID=${AWS::StackId}
           export MYSQL_HOST="mmxg9ojcyb1vfe.c9rcnbof579v.us-west-2.rds.amazonaws.com"
+          export SQS_QUEUE_URL="https://us-west-2.queue.amazonaws.com/473870623194/test"
           yum install -y git
           mkdir -p /var/lambda-test
           cd /var/lambda-test
