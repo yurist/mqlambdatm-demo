@@ -36,7 +36,7 @@ git clone https://github.com/ibm-messaging/mq-docker.git
 
 # build MQ server image with samples
 echo '==========> Building base MQ docker image'
-# docker build -t mq-docker --build-arg MQ_PACKAGES="MQSeriesRuntime-*.rpm MQSeriesServer-*.rpm MQSeriesMsg*.rpm MQSeriesJava*.rpm MQSeriesJRE*.rpm MQSeriesGSKit*.rpm MQSeriesSamples*.rpm" ./mq-docker/server/
+docker build -t mq-docker --build-arg MQ_PACKAGES="MQSeriesRuntime-*.rpm MQSeriesServer-*.rpm MQSeriesMsg*.rpm MQSeriesJava*.rpm MQSeriesJRE*.rpm MQSeriesGSKit*.rpm MQSeriesSamples*.rpm" ./mq-docker/server/
 echo '==========> Successfully built base MQ docker image'
 popd
 

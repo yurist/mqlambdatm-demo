@@ -233,6 +233,21 @@ Resources:
       SubnetId: !Ref MqInstanceSubnet
     DependsOn: 
     - MqIGW
+    UserData:
+      Fn::Base64: !Sub |
+        #! /bin/bash
+        echo '==========> cloud-init user data script started'
+        export AWS_DEFAULT_REGION=${AWS::Region}
+        export AWS_REGION=$AWS_DEFAULT_REGION
+        export STACK_ID=${AWS::StackId}
+        export MYSQL_HOST=${MySqlInstance.Endpoint.Address}
+        yum install -y git
+        mkdir -p /var/lambda-test
+        cd /var/lambda-test
+        git clone https://github.com/yurist/mqlambdatm-demo.git
+        cd mqlambdatm-demo/demo/cloud-init
+        ./run-demo.sh
+      
       
   RoleLambdaVpcExecution:
     Type: "AWS::IAM::Role"
