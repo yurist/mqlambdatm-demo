@@ -38,7 +38,7 @@ git clone https://github.com/ibm-messaging/mq-docker.git
 
 # build MQ server image with samples
 echo '==========> Building base MQ docker image'
-docker build -t mq-docker --build-arg MQ_PACKAGES="MQSeriesRuntime-*.rpm MQSeriesServer-*.rpm MQSeriesMsg*.rpm MQSeriesJava*.rpm MQSeriesJRE*.rpm MQSeriesGSKit*.rpm MQSeriesSamples*.rpm" ./mq-docker/server/
+# docker build -t mq-docker --build-arg MQ_PACKAGES="MQSeriesRuntime-*.rpm MQSeriesServer-*.rpm MQSeriesMsg*.rpm MQSeriesJava*.rpm MQSeriesJRE*.rpm MQSeriesGSKit*.rpm MQSeriesSamples*.rpm" ./mq-docker/server/
 echo '==========> Successfully build base MQ docker image'
 popd
 
@@ -72,5 +72,11 @@ echo '==========> Waiting for the queue to deplete'
 until [ `curdepth` == 0 ]; do
     sleep 5
 done
+
+echo "==========> Row counts from sample DB:"
+mysql -h $MYSQL_HOST --user=demouser --password=demopass mqlambdademo <<EOF
+select count(*) from orders;
+select count(*) from orderdetails;
+EOF
 
 echo "==========> mqlambdatm demo successfully completed"
