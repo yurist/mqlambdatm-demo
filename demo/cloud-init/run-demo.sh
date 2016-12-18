@@ -22,6 +22,7 @@ curdepth()
 
 echo
 echo '==========> mqlambdatm demo started'
+echo '==========> AWS_REGION='$AWS_REGION ' STACK_ID='$STACK_ID ' MYSQL_HOST='$MYSQL_HOST
 echo
 
 # install pre-requisites
