@@ -193,14 +193,6 @@ Resources:
       - Key: Name
         Value: MySqlEC2SecurityGroup
 
-  # MySqlSecurityGroup:
-  #   Type: "AWS::RDS::DBSecurityGroup"
-  #   Properties:
-  #     EC2VpcId: !Ref MqVPC
-  #     DBSecurityGroupIngress:
-  #     - EC2SecurityGroupId: !Ref MySqlEC2SecurityGroup
-  #     GroupDescription: 'MQ Lambda Demo DB Security Group'
-
   MySqlInstance:
     Type: "AWS::RDS::DBInstance"
     Properties:
