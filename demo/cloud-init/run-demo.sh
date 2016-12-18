@@ -30,6 +30,21 @@ yum install -y docker mysql56
 # start docker service
 service docker start
 
+echo '==========> Cloning IBM MQ docker git repo'
+pushd /tmp
+rm -rf mq-docker
+git clone https://github.com/ibm-messaging/mq-docker.git
+
+# build MQ server image with samples
+echo '==========> Building base MQ docker image'
+docker build -t mq-docker --build-arg MQ_PACKAGES="MQSeriesRuntime-*.rpm MQSeriesServer-*.rpm MQSeriesMsg*.rpm MQSeriesJava*.rpm MQSeriesJRE*.rpm MQSeriesGSKit*.rpm MQSeriesSamples*.rpm" ./mq-docker/server/
+echo '==========> Successfully build base MQ docker image'
+popd
+
+echo '==========> Building demo docker image'
+docker build -t mqlambdatm-demo ../docker/
+echo '==========> Demo image built'
+
 # wait for the stack creation to complete
 echo '==========> Waiting for stack creation to complete...'
 aws cloudformation wait stack-create-complete --stack-name $STACK_ID
@@ -38,21 +53,6 @@ echo '==========> Stack ready.'
 echo '==========> Creating sample database'
 mysql -h $MYSQL_HOST --user=demouser --password=demopass < ../sql/demo.sql
 echo '==========> Sample DB created'
-
-echo '==========> Cloning IBM MQ docker git repo'
-pushd /tmp
-rm -rf mq-docker
-git clone https://github.com/ibm-messaging/mq-docker.git
-
-# build MQ server image with samples
-echo '==========> Building base MQ docker image'
-# docker build -t mq-docker --build-arg MQ_PACKAGES="MQSeriesRuntime-*.rpm MQSeriesServer-*.rpm MQSeriesMsg*.rpm MQSeriesJava*.rpm MQSeriesJRE*.rpm MQSeriesGSKit*.rpm MQSeriesSamples*.rpm" ./mq-docker/server/
-echo '==========> Successfully build base MQ docker image'
-popd
-
-echo '==========> Building demo docker image'
-docker build -t mqlambdatm-demo ../docker/
-echo '==========> Demo image built'
 
 echo '==========> Running demo docker container'
 docker run -d -p 1414:1414 -e LICENSE=accept -e MQ_QMGR_NAME=$QMGR_NAME -e AWS_REGION=$AWS_REGION -v /var/lambdademo:/var/mqm --name demo mqlambdatm-demo
