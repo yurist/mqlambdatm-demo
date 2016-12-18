@@ -36,7 +36,7 @@ git clone https://github.com/ibm-messaging/mq-docker.git
 
 # build MQ server image with samples
 echo '==========> Building base MQ docker image'
-docker build -t mq-docker --build-arg MQ_PACKAGES="MQSeriesRuntime-*.rpm MQSeriesServer-*.rpm MQSeriesMsg*.rpm MQSeriesJava*.rpm MQSeriesJRE*.rpm MQSeriesGSKit*.rpm MQSeriesSamples*.rpm" ./mq-docker/server/
+# docker build -t mq-docker --build-arg MQ_PACKAGES="MQSeriesRuntime-*.rpm MQSeriesServer-*.rpm MQSeriesMsg*.rpm MQSeriesJava*.rpm MQSeriesJRE*.rpm MQSeriesGSKit*.rpm MQSeriesSamples*.rpm" ./mq-docker/server/
 echo '==========> Successfully built base MQ docker image'
 popd
 
@@ -48,6 +48,11 @@ echo '==========> Demo image built'
 echo '==========> Waiting for stack creation to complete...'
 aws cloudformation wait stack-create-complete --stack-name $STACK_ID
 echo '==========> Stack ready.'
+
+# extract MySql host name
+MYSQL_HOST=$(aws cloudformation describe-stacks | \
+          jq --raw-output \
+             ".Stacks[] | select(.StackId == $STACK_ID) | .Outputs[] | select(.OutputKey == 'MySqlInstancePublicDns' | .OutputValue")
 
 echo '==========> Creating sample database'
 mysql -h $MYSQL_HOST --user=demouser --password=demopass < ./sql/demo.sql

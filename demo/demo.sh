@@ -60,10 +60,10 @@ out=$(aws cloudformation create-stack --stack-name $STACK_NAME --capabilities CA
                             ParameterKey=S3Bucket,ParameterValue=$DEPLOYMENT_BUCKET \
                             ParameterKey=S3Key,ParameterValue=$CODE_ARCHIVE_NAME)
 
-echo "$out"
+STACK_ID=$(echo "$out" | jq --raw-output .StackId)
 
 echo "=======> Waiting for stack creation to complete, this will take awhile..."
-if [ aws cloudformation wait stack-create-complete --stack-name $STACK_NAME; ]
+if aws cloudformation wait stack-create-complete --stack-name $STACK_NAME;
 then
     echo "=======> Stack successfully created"
 else
