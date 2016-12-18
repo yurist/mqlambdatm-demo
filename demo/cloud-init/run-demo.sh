@@ -51,9 +51,7 @@ echo '==========> Stack ready.'
 
 # extract MySql host name
 
-jq_select=".Stacks[] | select(.StackName == \"$STACK_ID\") | .Outputs[] | select(.OutputKey == \"MySqlInstancePublicDns\") | .OutputValue"
-
-echo $jq_select
+jq_select=".Stacks[] | select(.StackId == \"$STACK_ID\") | .Outputs[] | select(.OutputKey == \"MySqlInstancePublicDns\") | .OutputValue"
 
 MYSQL_HOST=$(aws cloudformation describe-stacks | \
           jq --raw-output "$jq_select")
