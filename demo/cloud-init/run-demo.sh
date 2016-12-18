@@ -52,7 +52,7 @@ echo '==========> Stack ready.'
 # extract MySql host name
 MYSQL_HOST=$(aws cloudformation describe-stacks | \
           jq --raw-output \
-             ".Stacks[] | select(.StackId == $STACK_ID) | .Outputs[] | select(.OutputKey == 'MySqlInstancePublicDns' | .OutputValue")
+             ".Stacks[] | select(.StackId == \"$STACK_ID\") | .Outputs[] | select(.OutputKey == \"MySqlInstancePublicDns\" | .OutputValue")
 
 echo '==========> Creating sample database'
 mysql -h $MYSQL_HOST --user=demouser --password=demopass < ./sql/demo.sql
