@@ -1,6 +1,6 @@
 # Overview
 
-This is a sample implementation of [trigger monitor for IBM MQ and AWS Lambda](https://github.com/yurist/mqlambdatm), together with with configuration, scripts and data to run a demo. The sample is designed to provide illustration and guidance for developing Lambda functions in Java that are triggered by MQ Lambda Triggered Monitor, as well as samples of configuring these functions and related resources on AWS.
+This is a sample implementation of [trigger monitor for IBM MQ and AWS Lambda](https://github.com/yurist/mqlambdatm), together with with configuration, scripts and data to run a demo. The sample is designed to provide illustration and guidance for developing Lambda functions in Java that are triggered by MQ Lambda Trigger Monitor, as well as samples of configuring these functions and related resources on AWS.
 
 The repository includes the following components:
 
@@ -22,7 +22,7 @@ The demo includes [a CloudFormation template](https://github.com/yurist/mqlambda
 
 The EC2 instance is configured with a cloud-init script, which runs the sample:
 
-- Builds a Docker image with base IBM MQ developer server. The image is pulled from [IBM MQ Docker repository](https://github.com/ibm-messaging/mq-docker)
+- Builds a Docker image with base IBM MQ Server, using IBM MQ Advanced for Developers. The Dockerfile is pulled from [IBM MQ Docker repository](https://github.com/ibm-messaging/mq-docker)
 - Pulls `mqlambdatm` release
 - Builds a custom image based on mq-docker, which includes MQ trigger configuration and `mqlambdatm` executable
 - Creates an empy sample database
