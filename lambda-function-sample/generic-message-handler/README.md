@@ -10,3 +10,5 @@ If used as is it must be extended, implementing the following methods:
 - `finish`
 
 See `sample-mysql-message-processor` for a sample implementation.
+
+Look at the [main class](https://github.com/yurist/mqlambdatm-demo/blob/master/lambda-function-sample/generic-message-handler/src/main/java/com/steinschreiber/aws/mqlambda/AbstractMessageProcessor.java) for details.

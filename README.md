@@ -18,6 +18,8 @@ The demo includes [a CloudFormation template](https://github.com/yurist/mqlambda
 - An RDS MariaDB instance with a sample database
 - All auxiliary resources, including a VPC instance, subnets, security groups, internet gateway and IAM roles.
 
+*Note:* The Lambda function in the sample template is configured with a very short timeout of 10 seconds. This is done only to make sure the function does not remain up and contributes to billable time. In production usage, you need to set the timeout according to the message arrival patterns. For queues that are very busy and have constant traffic you probably want much longer timeouts. When Lambda function times out, MQ will automatically retrigger it immediately if there are still messages on the queue.
+
 The EC2 instance is configured with a cloud-init script, which runs the sample:
 
 - Builds a Docker image with base IBM MQ developer server. The image is pulled from [IBM MQ Docker repository](https://github.com/ibm-messaging/mq-docker)
@@ -31,7 +33,9 @@ The EC2 instance is configured with a cloud-init script, which runs the sample:
 
 # Running demo
 
-You need to [install and configure AWS CLI](http://docs.aws.amazon.com/cli/latest/userguide/installing.html). Make sure the IAM credentials you configure with AWS CLI can create CloudFormation stacks with EC2, RDS, Lamda and IAM resources. Additionally, you need:
+You need to [install and configure AWS CLI](http://docs.aws.amazon.com/cli/latest/userguide/installing.html). Make sure the IAM credentials you configure with AWS CLI can create CloudFormation stacks with EC2, RDS, Lamda and IAM resources. Make also sure to configure default AWS region.
+
+Additionally, you need:
 
 - JSON command line processor `jq`
 - Apache Maven
