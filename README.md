@@ -5,7 +5,7 @@ This is a sample implementation of [IBM MQ trigger monitor for AWS Lambda](https
 - [Lambda function sample](https://github.com/yurist/mqlambdatm-demo/tree/master/lambda-function-sample) - A Java project implementing AWS Lambda function, triggered when messages arrive on a specially configured MQ queue. The Lambda function parses the messages and inserts corresponding records into a MySQL database. The project consists of two modules: 
 - [Generic message handler](https://github.com/yurist/mqlambdatm-demo/tree/master/lambda-function-sample/generic-message-handler) - can be used as is for any MQ triggered Lambda. It implements all MQ-related queue and message manipulation logic. It provides an abstract class that needs to be extended for any application-specific message processing functionality such as database manipulation, SQS or Kinesis message propagation etc.
 - [Sample message processor](https://github.com/yurist/mqlambdatm-demo/tree/master/lambda-function-sample/sample-mysql-message-processor) - a sample usage of generic message handler that parses input messages and inserts data into a MySQL database.
-- [Demo](https://github.com/yurist/mqlambdatm-demo/tree/master/demo) - subcomponents to prepare and run a demo of the sample. It includes a script that builds the sample projec, uploads it to AWS S3, and then creates a CloudFormation stack with all the necessary resources to run the demo.
+- [Demo](https://github.com/yurist/mqlambdatm-demo/tree/master/demo) - subcomponents to prepare and run a demo of the sample. It includes a script that builds the sample project, uploads it to AWS S3, and then creates a CloudFormation stack with all the necessary resources to run the demo.
 
 # Demo description
 
@@ -59,6 +59,10 @@ The scripts reports its progress while executing. The last step, waiting for the
 You can `ssh` to the EC2 instance after the script finishes to check the cloud-init logs at `/var/log/cloud-init-output.log` and see the demo progress.
 
 You can remove all demo resources by deleting the stack created by the script. The script displays the relevant instructions.
+
+# Use of IBM software
+
+The demo downloads and installs IBM MQ Advanced for Developers. By running the demo, you accept [IBM License agreement](http://www14.software.ibm.com/cgi-bin/weblap/lap.pl?popup=Y&li_formnum=L-APIG-A4FHQ9)
 
 # License
 
