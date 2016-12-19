@@ -5,17 +5,6 @@ SET CHLAUTH(PASSWORD.SVRCONN) TYPE(ADDRESSMAP) ADDRESS('*') USERSRC(CHANNEL) CHC
 ALTER AUTHINFO(SYSTEM.DEFAULT.AUTHINFO.IDPWOS) AUTHTYPE(IDPWOS) ADOPTCTX(YES)
 REFRESH SECURITY TYPE(CONNAUTH)
 
-define service(LAMBDATEST.TM) +
-       control(qmgr) +
-       servtype(server) +
-       startcmd('/usr/local/bin/mqlambdatm') +
-       startarg('-m +QMNAME+ -q LAMBDATEST.INITQ --log-level DEBUG') +
-       stopcmd('+MQ_INSTALL_PATH+bin/amqsstop') +
-       stoparg('-m +QMNAME+ -p +MQ_SERVER_PID+') +
-       stdout('/tmp/lambdatest.tm.out') +
-       stderr('/tmp/lambdatest.tm.err') +
-       replace
-
 start service(LAMBDATEST.TM)
 
 define process('LAMBDATEST') + 
@@ -33,4 +22,15 @@ define qlocal('LAMBDATEST.Q') +
        trigtype(first) +
        trigdata('') +
        initq('LAMBDATEST.INITQ') +
+       replace
+
+define service(LAMBDATEST.TM) +
+       control(qmgr) +
+       servtype(server) +
+       startcmd('/usr/local/bin/mqlambdatm') +
+       startarg('-m +QMNAME+ -q LAMBDATEST.INITQ --log-level DEBUG') +
+       stopcmd('+MQ_INSTALL_PATH+bin/amqsstop') +
+       stoparg('-m +QMNAME+ -p +MQ_SERVER_PID+') +
+       stdout('/tmp/lambdatest.tm.out') +
+       stderr('/tmp/lambdatest.tm.err') +
        replace
