@@ -18,7 +18,7 @@ The demo includes [a CloudFormation template](https://github.com/yurist/mqlambda
 - An RDS MariaDB instance with a sample database
 - All auxiliary resources, including a VPC instance, subnets, security groups, internet gateway and IAM roles.
 
-*Note:* The Lambda function in the sample template is configured with a very short timeout of 10 seconds. This is done only to make sure the function does not remain up and contributes to billable time. In production usage, you need to set the timeout according to the message arrival patterns. For queues that are very busy and have constant traffic you probably want much longer timeouts. When Lambda function times out, MQ will automatically retrigger it immediately if there are still messages on the queue.
+*Note:* The Lambda function in the sample template is configured with a very short timeout of 10 seconds. This is done only to make sure the function does not remain up and contributes to billable time. In production usage, you need to set the timeout according to the message arrival patterns. For queues that are very busy and have constant traffic you probably want much longer timeouts. When Lambda function times out, MQ will automatically retrigger it immediately if there are still messages on the queue. The sample message handler monitors time remaining before time out, and terminates gracefully 1 second in advance, releasing MQ resources and thus making sure retriggering occurs instantly.
 
 The EC2 instance is configured with a cloud-init script, which runs the sample:
 
