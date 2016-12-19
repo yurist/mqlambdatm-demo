@@ -11,7 +11,7 @@ The repository includes the following components:
 
 # Demo description
 
-The demo includes a CloudFormation template that creates all the resources necessary for running the sample end to end:
+The demo includes [a CloudFormation template](https://github.com/yurist/mqlambdatm-demo/blob/master/demo/cfn/demo.yaml) that creates all the resources necessary for running the sample end to end:
 
 - An EC2 instance that hosts MQ Queue Manager along with MQ Lambda Trigger Monitor
 - A fully configured Lambda function, triggered by MQ Lamdba Trigger Monitor, pulls messages from the triggered queue and writes records to a sample database
