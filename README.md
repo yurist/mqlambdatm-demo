@@ -15,7 +15,7 @@ or
 
     sudo yum install jq maven git unzip
 
-You need IBM MQ Java client library, com.ibm.mq.allclient.jar, If you have IBM MQ with Java option installed, it is in the directory `<MQ_INSTALLATION_PATH>/java/lib`, by default `/opt/mqm/java/lib`. If you don't have MQ installed on your computer, then you need to download IBM MQ redistributable client for Java. Follow [this link](https://www-945.ibm.com/support/fixcentral/swg/selectFixes?parent=ibm~WebSphere&product=ibm/WebSphere/WebSphere+MQ&release=9.0.1&platform=Linux+64-bit,x86_64&function=all), scroll down and click on the link above "IBM MQ JMS and Java redistributable client". You will need IBMid and password to proceed, you you don't have one you need to create one from this page.
+You need IBM MQ Java client library, com.ibm.mq.allclient.jar, If you have IBM MQ with Java option installed, it is in the directory `<MQ_INSTALLATION_PATH>/java/lib`, by default `/opt/mqm/java/lib`. If you don't have MQ installed on your computer, then you need to download IBM MQ redistributable client for Java. Follow [this link](https://www-945.ibm.com/support/fixcentral/swg/selectFixes?parent=ibm~WebSphere&product=ibm/WebSphere/WebSphere+MQ&release=9.0.1&platform=Linux+64-bit,x86_64&function=all), scroll down and click on the link above "IBM MQ JMS and Java redistributable client". You will need IBMid and password to proceed, if you don't have one you need to create it from this page.
 
 After downloading, unzip the file into any directory.
 
