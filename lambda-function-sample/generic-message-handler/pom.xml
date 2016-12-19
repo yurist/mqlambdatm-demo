@@ -9,7 +9,6 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <mq.redist>${env.HOME}/mqclient/wmq/JavaSE</mq.redist>
     </properties>
 
     <repositories>
@@ -39,7 +38,7 @@
                             <generatePom>true</generatePom>
                             <localRepositoryPath>${basedir}/repo</localRepositoryPath>
                             <packaging>jar</packaging>
-                            <file>${mq.redist}/com.ibm.mq.allclient.jar</file>
+                            <file>${mq.jar.dir}/com.ibm.mq.allclient.jar</file>
                         </configuration>
                     </execution>
                 </executions>

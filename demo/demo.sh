@@ -11,14 +11,19 @@ usage() {
     echo "demo.sh [options]"
     echo
     echo "options:"
-    echo "  --key-pair KEY_PAIR       -- existing EC2 keyp pair - mandatory"
-    echo "  --deployment-bucket       -- existing S3 bucket for code uploading - mandatory"
-    echo "  --stack-name              -- stack to create, default mqlambdatm-demo-stack"
+    echo "  --mq-jar-dir_DIR               -- location of com.ibm.mq.allclient.jar - mandatory"
+    echo "  --key-pair KEY_PAIR            -- existing EC2 keyp pair - mandatory"
+    echo "  --deployment-bucket            -- existing S3 bucket for code uploading - mandatory"
+    echo "  --stack-name                   -- stack to create, default mqlambdatm-demo-stack"
 }
 
 while [[ $# > 1 ]]
 do
     case $1 in
+        --mq-jar-dir)
+            IBM_MQ_DIR="$2"
+            shift
+            ;;
         --key-pair)
             KEY_PAIR="$2"
             shift
@@ -39,7 +44,7 @@ do
     shift
 done
 
-if [[ "$KEY_PAIR" == "" || "$DEPLOYMENT_BUCKET" == "" || $# > 0 ]]
+if [[ "$KEY_PAIR" == "" || "$DEPLOYMENT_BUCKET" == "" || "$IBM_MQ_DIR" == "" || $# > 0 ]]
 then
     usage
     exit
@@ -47,7 +52,7 @@ fi
 
 echo "=======> Building sample Lambda message consumer..."
 pushd ../lambda-function-sample
-mvn clean package
+mvn -Dmq.jar.dir="$IBM_MQ_DIR" clean package
 popd
 
 echo "=======> Uploading jar to S3..."
