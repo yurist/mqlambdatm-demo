@@ -1,6 +1,8 @@
 # Overview
 
-This is a sample implementation of [IBM MQ trigger monitor for AWS Lambda](https://github.com/yurist/mqlambdatm), together with with configuration, scripts and data to run a demo. It includes the following components:
+This is a sample implementation of [IBM MQ trigger monitor for AWS Lambda](https://github.com/yurist/mqlambdatm), together with with configuration, scripts and data to run a demo. The sample is designed to provide illustration and guidance for developing Lambda functions in Java that are triggered by MQ Lambda Triggered Monitor, as well as samples of configuring these functions and related resources on AWS.
+
+The repository includes the following components:
 
 - [Lambda function sample](https://github.com/yurist/mqlambdatm-demo/tree/master/lambda-function-sample) - A Java project implementing AWS Lambda function, triggered when messages arrive on a specially configured MQ queue. The Lambda function parses the messages and inserts corresponding records into a MySQL database. The project consists of two modules: 
 - [Generic message handler](https://github.com/yurist/mqlambdatm-demo/tree/master/lambda-function-sample/generic-message-handler) - can be used as is for any MQ triggered Lambda. It implements all MQ-related queue and message manipulation logic. It provides an abstract class that needs to be extended for any application-specific message processing functionality such as database manipulation, SQS or Kinesis message propagation etc.
