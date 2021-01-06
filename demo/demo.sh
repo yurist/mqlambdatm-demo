@@ -52,7 +52,7 @@ fi
 
 echo "=======> Building sample Lambda message consumer..."
 pushd ../lambda-function-sample
-mvn -Dmq.jar.dir="$IBM_MQ_DIR" clean package
+mvn -Dmq.jar.dir="$IBM_MQ_DIR" initialize clean package
 popd
 
 echo "=======> Uploading jar to S3..."
