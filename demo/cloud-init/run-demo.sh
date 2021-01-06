@@ -34,11 +34,13 @@ pushd /tmp
 rm -rf mq-docker
 git clone https://github.com/ibm-messaging/mq-docker.git
 
-# build MQ server image with samples
-echo '==========> Building base MQ docker image'
-docker build -t mq-docker --build-arg MQ_PACKAGES="MQSeriesRuntime-*.rpm MQSeriesServer-*.rpm MQSeriesMsg*.rpm MQSeriesJava*.rpm MQSeriesJRE*.rpm MQSeriesGSKit*.rpm MQSeriesSamples*.rpm" ./mq-docker/server/
-echo '==========> Successfully built base MQ docker image'
-popd
+# using IBM new docker image on docker hub instead of building a custom one
+
+# # build MQ server image with samples
+# echo '==========> Building base MQ docker image'
+# docker build -t mq-docker --build-arg MQ_PACKAGES="MQSeriesRuntime-*.rpm MQSeriesServer-*.rpm MQSeriesMsg*.rpm MQSeriesJava*.rpm MQSeriesJRE*.rpm MQSeriesGSKit*.rpm MQSeriesSamples*.rpm" ./mq-docker/server/
+# echo '==========> Successfully built base MQ docker image'
+# popd
 
 echo '==========> Building demo docker image'
 docker build -t mqlambdatm-demo ./docker/
