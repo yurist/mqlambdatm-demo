@@ -15,7 +15,7 @@ ARG MQLAMBDATM_RELEASE="https://github.com/yurist/mqlambdatm/releases/download/v
 # COPY *.sh /usr/local/bin/
 COPY *.mqsc /etc/mqm/
 
-RUN chmod +x /usr/local/bin/*.sh
+# RUN chmod +x /usr/local/bin/*.sh
 
 RUN apt-get update && \
     apt-get install -y ca-certificates 
