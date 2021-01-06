@@ -49,14 +49,14 @@ echo '==========> Demo image built'
 
 # wait for the stack creation to complete
 echo '==========> Waiting for stack creation to complete...'
-aws cloudformation wait stack-create-complete --stack-name $STACK_ID
+aws --region $AWS_REGION cloudformation wait stack-create-complete --stack-name $STACK_ID
 echo '==========> Stack ready.'
 
 # extract MySql host name
 
 jq_select=".Stacks[] | select(.StackId == \"$STACK_ID\") | .Outputs[] | select(.OutputKey == \"MySqlInstancePublicDns\") | .OutputValue"
 
-MYSQL_HOST=$(aws cloudformation describe-stacks | \
+MYSQL_HOST=$(aws --region $AWS_REGION cloudformation describe-stacks | \
           jq --raw-output "$jq_select")
 
 echo '==========> Creating sample database'
