@@ -29,12 +29,13 @@ yum install -y docker mysql56
 # start docker service
 service docker start
 
-echo '==========> Cloning IBM MQ docker git repo'
-pushd /tmp
-rm -rf mq-docker
-git clone https://github.com/ibm-messaging/mq-docker.git
-
 # using IBM new docker image on docker hub instead of building a custom one
+
+# echo '==========> Cloning IBM MQ docker git repo'
+# pushd /tmp
+# rm -rf mq-docker
+# git clone https://github.com/ibm-messaging/mq-docker.git
+
 
 # # build MQ server image with samples
 # echo '==========> Building base MQ docker image'
