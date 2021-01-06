@@ -12,13 +12,15 @@ MAINTAINER Yuri Steinschreiber <yuri@steinchreiber.com>
 
 ARG MQLAMBDATM_RELEASE="https://github.com/yurist/mqlambdatm/releases/download/v0.0.1-alpha.2/mqlambdatm.tar.gz"
 
+USER root
+
 # COPY *.sh /usr/local/bin/
 COPY *.mqsc /etc/mqm/
 
 # RUN chmod +x /usr/local/bin/*.sh
 
-RUN apt-get update && \
-    apt-get install -y ca-certificates 
+# RUN apt-get update && \
+#     apt-get install -y ca-certificates 
 
 RUN mkdir /tmp/mqlambda && \
     cd /tmp/mqlambda && \
@@ -28,7 +30,7 @@ RUN mkdir /tmp/mqlambda && \
     rm -rf /tmp/mqlambda && \
     useradd demo && \
     echo demo:demo | chpasswd && \
-    usermod -a -G mqm demo
+    usermod -a -G root demo
 
 
     
