@@ -5,7 +5,8 @@
 # argument of mq-docker build, then it is IBM MQ developer license, otherwise
 # the license for the MQ installation media you have chosen.
 
-FROM mq-docker
+# FROM mq-docker
+FROM ibmcom/mq:latest
 
 MAINTAINER Yuri Steinschreiber <yuri@steinchreiber.com> 
 
