@@ -10,7 +10,7 @@ FROM ibmcom/mq:latest
 
 MAINTAINER Yuri Steinschreiber <yuri@steinchreiber.com> 
 
-ARG MQLAMBDATM_RELEASE="https://github.com/yurist/mqlambdatm/releases/download/v0.0.2/mqlambdatm.tar.gz"
+ARG MQLAMBDATM_RELEASE="https://github.com/yurist/mqlambdatm/releases/download/v0.0.3/mqlambdatm.tar.gz"
 
 USER root
 
